@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigation: Fossil Fuel Emissions and the Carbon Cycle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page: #fdfbf7;
+    --ink: #1a1a1a;
+    --ink-light: #555;
+    --ink-faint: #999;
+    --accent: #2d5f4a;
+    --accent-light: #e8f0ec;
+    --rule: #d4cfc5;
+    --ref-bg: #f5f2ec;
+    --link: #2d5f4a;
+    --link-hover: #1a3d2e;
+    --margin: clamp(1.25rem, 5vw, 3rem);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { font-size: 17px; }
+
+  body {
+    font-family: 'Lora', Georgia, 'Times New Roman', serif;
+    background: #eae6df;
+    color: var(--ink);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 2rem auto;
+    background: var(--page);
+    padding: clamp(2rem, 6vw, 4rem) var(--margin) 3rem;
+    box-shadow:
+      0 1px 3px rgba(0,0,0,0.04),
+      0 8px 30px rgba(0,0,0,0.06);
+    border-radius: 2px;
+    position: relative;
+  }
+
+  /* Left margin line like a ruled page */
+  .page::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--margin) - 0.75rem);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #e0c8c8;
+    opacity: 0.5;
+  }
+
+  /* Title block */
+  .title-block {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  h1 {
+    font-family: 'Lora', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .author {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    letter-spacing: 0.02em;
+  }
+
+  /* Claim box */
+  .claim {
+    margin: 1.75rem 0 2rem;
+    padding: 1rem 1.25rem;
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .claim-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+
+  .claim p {
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* Section headings */
+  h2 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-top: 2.25rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* Body paragraphs */
+  .body p {
+    margin-bottom: 1rem;
+    text-align: justify;
+    hyphens: auto;
+    font-size: 0.95rem;
+  }
+
+  .body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* In-text citations */
+  .cite {
+    color: var(--ink-light);
+    font-size: 0.88em;
+  }
+
+  /* References section */
+  .references {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--ink);
+  }
+
+  .references h2 {
+    border-bottom: none;
+    margin-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 1rem;
+    color: var(--ink);
+  }
+
+  .ref-list {
+    list-style: none;
+    counter-reset: ref;
+  }
+
+  .ref-list li {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin-bottom: 0.9rem;
+    padding-left: 1.5rem;
+    text-indent: -1.5rem;
+    color: var(--ink);
+  }
+
+  .ref-list li em {
+    font-style: italic;
+  }
+
+  .ref-list li a {
+    color: var(--link);
+    text-decoration: none;
+    word-break: break-all;
+    font-size: 0.78rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .ref-list li a:hover {
+    color: var(--link-hover);
+    border-bottom-color: var(--link-hover);
+  }
+
+  .ref-url {
+    display: block;
+    margin-top: 0.15rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    word-break: break-all;
+  }
+
+  .ref-url a {
+    color: var(--ink-faint);
+    font-size: inherit;
+  }
+
+  .ref-url a:hover {
+    color: var(--link-hover);
+  }
+
+  /* Page footer */
+  .page-foot {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+  /* Subtle entrance */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .page {
+    animation: fadeIn 0.5s ease both;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .page {
+      box-shadow: none;
+      margin: 0;
+      padding: 2rem;
+      max-width: 100%;
+    }
+    .page::before { display: none; }
+    .ref-list li a { color: var(--ink); }
+  }
+
+  @media (max-width: 600px) {
+    html { font-size: 15px; }
+    .page { margin: 0; border-radius: 0; }
+    .page::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="title-block">
+    <h1>An Investigation into How Fossil Fuel Emissions Have Affected the Carbon Cycle and Contributed to Climate Change</h1>
+    <div class="author">Eva Parejas</div>
+  </div>
+
+  <div class="claim">
+    <div class="claim-label">Claim</div>
+    <p>Human activity has contributed to climate change.</p>
+  </div>
+
+  <h2>Rationale</h2>
+  <div class="body">
+    <p>Climate change is the long-term shift in Earth's average temperatures and weather patterns, mostly caused by rising greenhouse gas levels in the atmosphere. Since the industrial revolution, the planet has warmed by about 1.1&#176;C, leading to more extreme weather events, melting ice caps, and rising sea levels <span class="cite">(Bureau of Meteorology &amp; CSIRO, 2024)</span>. The carbon cycle is the natural process that moves carbon between the atmosphere, oceans, land, and living things, normally keeping Earth's temperature stable. However, when fossil fuels are burned, carbon trapped underground for millions of years is released as CO&#8322;, throwing the cycle out of balance. This extra CO&#8322; traps heat through the greenhouse effect, driving global warming.</p>
+
+    <p>The carbon cycle works through interactions between Earth's four spheres: the atmosphere (air), hydrosphere (water), geosphere (rocks and soil), and biosphere (living things). Carbon moves between these spheres through photosynthesis, respiration, ocean absorption, and volcanic activity. Burning fossil fuels like coal, oil, and natural gas releases about 9.1 billion tonnes of CO&#8322; into the atmosphere every year, roughly double what natural sinks can reabsorb <span class="cite">(CSIRO, 2024)</span>. This breaks the geosphere-atmosphere balance because stored carbon is entering the air far faster than it can be removed. The excess CO&#8322; also dissolves into the oceans, causing ocean acidification that damages marine life in the biosphere and reduces the ocean's capacity to absorb further CO&#8322;, creating a feedback loop that accelerates warming <span class="cite">(NASA, n.d.)</span>.</p>
+  </div>
+
+  <h2>Evaluation: Science and Technology</h2>
+  <div class="body">
+    <p>Global greenhouse gas production needs to be reduced because continued emissions will worsen climate change, leading to more severe droughts, floods, and species extinction <span class="cite">(Bureau of Meteorology &amp; CSIRO, 2024)</span>. One new technology being developed by CSIRO is Direct Air Capture and Storage (DACS), which pulls CO&#8322; directly out of the surrounding air using specialised materials. The Airthena project has a demonstration unit planned for 2026 that aims to capture atmospheric CO&#8322; and store it permanently underground <span class="cite">(CSIRO, n.d.)</span>. Engineers are working to reduce the energy cost of capture and scale it to handle millions of tonnes per year. This could lower greenhouse gas concentrations by removing CO&#8322; already in the atmosphere, alongside efforts to cut new emissions.</p>
+  </div>
+
+  <h2>Evaluation: Science and Society</h2>
+  <div class="body">
+    <p>The United Nations Paris Agreement, adopted in 2015, is an international treaty where 196 countries agreed to limit global warming to well below 2&#176;C above pre-industrial levels by cutting greenhouse gas emissions <span class="cite">(United Nations, n.d.)</span>. Each country sets its own reduction targets, called Nationally Determined Contributions, which are reviewed every five years. Fossil fuel combustion is a major contributor to rising CO&#8322; because it releases carbon locked in geological formations for millions of years faster than natural sinks can absorb it <span class="cite">(CSIRO, 2024)</span>. In Australia, the Safeguard Mechanism requires the 215 largest industrial facilities, including fossil fuel operations, to cut their emissions baselines by 4.9% each year until 2030, with a target of 43% reduction below 2005 levels <span class="cite">(DCCEEW, 2024)</span>. The government has also committed to net zero emissions by 2050 through renewable energy investment and phasing down coal power. At the same time, growing public concern about climate impacts has increased funding for climate science. These policies show how science and society influence each other, with climate research shaping regulations and public pressure driving further investigation.</p>
+  </div>
+
+  <h2>Evaluation: Publication and Peer Review</h2>
+  <div class="body">
+    <p>In Australia, researchers submit their work to academic journals, where an editor assesses the manuscript's relevance and quality before sending it to independent experts for review. If the reviewers suggest changes, the author must address that feedback before the article can be accepted <span class="cite">(University of Queensland Library, n.d.)</span>. The Australian Code for the Responsible Conduct of Research (2018), published by the NHMRC, ARC, and Universities Australia, sets out principles such as honesty, rigour, and transparency that all Australian researchers are expected to follow <span class="cite">(NHMRC, 2018)</span>. Peer review involves independent experts evaluating a researcher's methods, data, and conclusions to verify accuracy and reliability, following the NHMRC's principles of fairness, transparency, and independence <span class="cite">(NHMRC, n.d.)</span>. While peer review is not perfect, it remains the most reliable quality control system available for scientific research. These processes reduce the risk of errors or false claims entering the scientific record, maintaining public trust in evidence-based policies such as climate action.</p>
+  </div>
+
+  <h2>Conclusion</h2>
+  <div class="body">
+    <p>Burning fossil fuels releases billions of tonnes of stored carbon into the atmosphere each year, disrupting the carbon cycle and changing how Earth's spheres interact through warming and ocean acidification. International agreements like the Paris Agreement and Australian policies like the Safeguard Mechanism are working to reduce emissions, while technologies like CSIRO's Direct Air Capture aim to remove existing atmospheric CO&#8322;. Based on the evidence, the claim that human activity has contributed to climate change is supported, because fossil fuel emissions have increased atmospheric CO&#8322; beyond what natural processes can absorb.</p>
+  </div>
+
+  <div class="references">
+    <h2>References</h2>
+    <ul class="ref-list">
+      <li>
+        Bureau of Meteorology &amp; CSIRO. (2024). <em>State of the Climate 2024</em>.
+        <span class="ref-url"><a href="http://www.bom.gov.au/state-of-the-climate" target="_blank" rel="noopener">bom.gov.au/state-of-the-climate</a></span>
+      </li>
+      <li>
+        CSIRO. (2024). Global carbon dioxide emissions from fossil fuels continue to increase.
+        <span class="ref-url"><a href="https://www.csiro.au/en/news/All/News/2024/November/Global-carbon-dioxide-emissions-from-fossil-fuels-continue-to-increase" target="_blank" rel="noopener">csiro.au/en/news/All/News/2024/November/Global-carbon-dioxide-emissions-from-fossil-fuels-continue-to-increase</a></span>
+      </li>
+      <li>
+        CSIRO. (n.d.). Direct air capture and storage.
+        <span class="ref-url"><a href="https://www.csiro.au/en/research/environmental-impacts/emissions/carbon-dioxide-removal/direct-air-capture-storage" target="_blank" rel="noopener">csiro.au/en/research/environmental-impacts/emissions/carbon-dioxide-removal/direct-air-capture-storage</a></span>
+      </li>
+      <li>
+        Department of Climate Change, Energy, the Environment and Water. (2024). <em>Safeguard Mechanism</em>.
+        <span class="ref-url"><a href="https://www.dcceew.gov.au/climate-change/emissions-reporting/national-greenhouse-energy-reporting-scheme/safeguard-mechanism" target="_blank" rel="noopener">dcceew.gov.au/climate-change/emissions-reporting/national-greenhouse-energy-reporting-scheme/safeguard-mechanism</a></span>
+      </li>
+      <li>
+        National Aeronautics and Space Administration. (n.d.). The carbon cycle.
+        <span class="ref-url"><a href="https://science.nasa.gov/earth/earth-observatory/the-carbon-cycle/" target="_blank" rel="noopener">science.nasa.gov/earth/earth-observatory/the-carbon-cycle</a></span>
+      </li>
+      <li>
+        National Health and Medical Research Council. (2018). <em>Australian Code for the Responsible Conduct of Research</em>.
+        <span class="ref-url"><a href="https://www.nhmrc.gov.au/about-us/publications/australian-code-responsible-conduct-research-2018" target="_blank" rel="noopener">nhmrc.gov.au/about-us/publications/australian-code-responsible-conduct-research-2018</a></span>
+      </li>
+      <li>
+        National Health and Medical Research Council. (n.d.). <em>Principles of peer review</em>.
+        <span class="ref-url"><a href="https://www.nhmrc.gov.au/about-us/resources/principles-peer-review" target="_blank" rel="noopener">nhmrc.gov.au/about-us/resources/principles-peer-review</a></span>
+      </li>
+      <li>
+        United Nations. (n.d.). The Paris Agreement.
+        <span class="ref-url"><a href="https://www.un.org/en/climatechange/paris-agreement" target="_blank" rel="noopener">un.org/en/climatechange/paris-agreement</a></span>
+      </li>
+      <li>
+        University of Queensland Library. (n.d.). Peer-reviewed journal articles.
+        <span class="ref-url"><a href="https://guides.library.uq.edu.au/tools-and-techniques/peer-reviewed-journal-articles" target="_blank" rel="noopener">guides.library.uq.edu.au/tools-and-techniques/peer-reviewed-journal-articles</a></span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="page-foot">Earth and Space Sciences Investigation</div>
+
+</div>
+
+</body>
+</html>
